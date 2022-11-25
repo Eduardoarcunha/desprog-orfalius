@@ -56,7 +56,7 @@ Antes de mais nada, precisamos dar um passo para trás no estudo de complexidade
 
 ??? Checkpoint 2
 
-Até então, nós definimos a complexidade de um algoritmo em função de uma entrada, por exemplo, para algoritmos de ordenação, utilizamos o tamanho _n_ do vetor que será ordenado. A complexidade de uma operação básica pode ser definida em função do que?
+Até então, nós definimos a complexidade de um algoritmo em função de uma entrada, por exemplo, para algoritmos de ordenação, utilizamos o tamanho _n_ do vetor que será ordenado. A complexidade de uma operação de vários dígitos pode ser definida em função do que?
 
 ::: Gabarito
 
@@ -64,7 +64,7 @@ Até então, nós definimos a complexidade de um algoritmo em função de uma en
 
 ???
 
-Agora que definimos o que consideramos como operação básica, e em função do que escrevemos a complexidade, vamo ver qual a complexidade da operação mais simples de todas, a **soma**.
+Agora que definimos o que consideramos como operação básica, e em função do que escrevemos a complexidade de outras operações de mais dígitos, vamos ver qual a complexidade da operação mais simples de todas, a **soma**.
 
 ??? Checkpoint 3
 
@@ -118,14 +118,14 @@ Quatro multiplicações.
 
 ??? Checkpoint 7
 
-Realize o mesmo processo, mas dessa vez, para uma multiplicação números de 3 dígitos. Lembre-se que não estamos interessados no resultado do produto, mas na quantidade de multiplicações de um dígitos que são feitas.
+Realize o mesmo processo, mais uma vez. Lembre-se que não estamos interessados no resultado do produto, mas na quantidade de multiplicações de um dígitos que são feitas.
 
 $$
 \begin{equation}
 \frac{
     \begin{array}[b]{r}
-      \left( 1 2 3\right)\\
-      \times \left( 4 5 6 \right)
+      \left( 2 3\right)\\
+      \times \left( 5 6 \right)
     \end{array}
   }{
     \left( produto \right)
@@ -139,15 +139,10 @@ $$
 | :-----------: | :---------: |
 |     6 X 3     |      1      |
 |     6 X 2     |      1      |
-|     6 X 1     |      1      |
 |     5 X 3     |      1      |
 |     5 X 2     |      1      |
-|     5 X 1     |      1      |
-|     4 X 3     |      1      |
-|     4 X 2     |      1      |
-|     4 X 1     |      1      |
 
-9 multiplicações.
+4 multiplicações.
 
 ???
 
@@ -155,6 +150,8 @@ Talvez você já consiga enxergar um padrão, será que conseguimos definir a co
 
 ??? Checkpoint 8
 Relacione matematicamente o número de multiplicações $m$ com a quantidade $n$ de dígitos:
+
+_Dica: Se não tiver enxergado um padrão, realize o mesmo processo para números de três dígitos_
 
 ::: Gabarito
 $m = n^{2}$
@@ -179,13 +176,15 @@ Já adiantamos que sim! E ainda bem que sim! Pois, para números muito grandes, 
 Para compreender um desses novos métodos vamos utilizar uma estratégia já vista.
 
 ??? Checkpoint 9
-Você consegue pensar em alguma estratégia ja vista antes em **Desafios de Programação** que envolva transformar duas entradas em quatro até atingir um caso base?
+Você consegue pensar em alguma estratégia ja vista antes em **Desafios de Programação** que consiga resolver um problema quebrando ele em versões mais simples, e combinando as soluções dessas para resolver o problema original?
 
 ::: Gabarito
-Iremos utilizar a estratégia de divisão e conquista associada à ideia de recursão.
+Iremos utilizar a estratégia de divisão e conquista.
 :::
 
 ???
+
+{red}(**Antes de avançar-mos, por questão de simplicidade, consideraremos todas entradas $n$, como potências de 2. (Isso não compromete o resultado, mas simplifica as demonstrações).**)
 
 E se fosse possível calcular o produto de dois números de $n$ dígitos por meio de um método com um número menor de multiplicações? Foi exatamente isso que Karatsuba conseguiu fazer.
 
@@ -219,17 +218,19 @@ _Por simplicidade iremos supor que $x$ e $y$ possuem a mesma quantidade de dígi
 
 $$x \times y = (a \times 10^{n/2} + b)(c \times 10^{n/2} + d)$$
 
-$$= (a\times10^{n/2}) (a\times10^{n/2}) + ad \times 10^{n/2} + bc \times 10^{n/2} + bd$$
+$$= (a\times10^{n/2}) (c\times10^{n/2}) + ad \times 10^{n/2} + bc \times 10^{n/2} + bd$$
 
 $$= \underline{ac} \times 10^{2(n/2)} + (\underline{ad}+\underline{bc}) \times 10^{n/2} + \underline{bd}$$
 
 Até agora chegamos em quatro multiplicações de números com $n/2$ dígitos, se fossemos analisar a complexidade aqui, ainda teriamos $O(n^{2})$.
 
+É possível aumentar o número de multiplicações de 4 para 5, tentaremos manipular essa expressão para atingir esse resultado. (Tenha fé, isso fará sentido!)
+
 ??? Checkpoint 12
 
-É possível aumentar o número de multiplicações de 4 para 5, tente manipular essa expressão para atingir esse resultado. (Tenha fé, isso fará sentido!)
+Fatore o termo $(ad + bc)$ de forma a resultar em três multiplicações ao invés de duas
 
-_Dica: tente fatorar algum termo da equação_
+_Dica: Pelo produto de duas somas, podemos chegar em $(ad + bc)$ $+$ $alguma$ $coisa$, e depois isolarmos $(ad + bc)$_
 
 ::: Gabarito
 
@@ -260,7 +261,128 @@ As multiplicações $ac$ e $bd$ só precisam ser calculadas uma vez, então pode
 :::
 ???
 
-## Implementação
+## Complexidade
+
+Finalmente, temos a ideia do algoritmo pronto, mas é interessante saber qual a complexidade desse algoritmo, para vermos o quão rápido ele é em relação à multiplicação clássica.
+
+{red}(**Como a eficiência dos algoritmos são muito próximas, não simplifique as bases logaritmas, por exemplo, considere $log_{2}$ como $log_{2}$ e $log_{3}$ como $log_{3}$.**)
+
+??? Exercicio 1
+
+Lembre-se das árvores de complexidade para algoritmos recurssivos e tente escrever a recorrência desse algoritmo.
+
+_Dica: Considere que a parte não-recursiva de cada chamada tem complexidade $O(n)$ (isso é consequência das operações de soma que acontecem entre os produtos)_
+::: Gabarito
+
+```txt
+         /
+        | n             se n <= 1;
+f(n) = <
+        | 3f(n/2) + n   se n > 1.
+         \
+```
+
+:::
+
+???
+
+??? Exercicio 2
+
+Desenhe a árvore do algoritmo.
+
+_Dica: A árvore é semelhante a prova (sim, ela é grande)_
+::: Gabarito
+
+![](karatsuba.png|20)
+
+:::
+
+???
+
+??? Exercicio 3
+
+Qual a altura h dessa árvore?
+
+::: Gabarito
+
+Tamanho n divide por 3 a cada andar enquanto for maior que 1.
+No andar (h-2), o valor de n é maior que 1.
+
+$\frac{n}{2^{h-2}} > 1$
+
+$2^{h} < 9n$
+
+$h = O(log_{2}(n))$, ou seja $h <= c * log_{2}(n)$
+
+:::
+
+???
+
+Sim, chegou o momento.
+
+??? Exercicio 4 (Desafio)
+
+Calcule a complexidade do método de karatsuba.
+
+_Dica: Teremos que usar propriedades logarítmicas e exponenciais_
+
+::: Gabarito
+
+Ao longo dos andares, temos
+
+$(n + 3(n/2) + 9(n/4) + ... + 3^{h-2}*n/2^{h-2} + 3^{h-1}*n/2^{h-1})$
+
+$n(1 + 3/2 + 9/4 + ... + 3^{h-2}/2^{h-2} + 3^{h-1}/2^{h-1})$
+
+Soma de PG
+
+- primeiro elemento 1
+- razão 3/2
+- número de elementos h
+
+Dessa forma:
+
+$= n *\frac{((\frac{3}{2})^{h} - 1)}{3/2 - 1}$
+
+$= n *\frac{(\frac{3^{h}}{2^{h}} - 1)}{0.5}$
+
+Substituindo h:
+
+$= \frac{n}{0.5}(\frac{3^{log_{2}(n)}}{2^{log_{2}(n)}} - 1)$
+
+Um número qualquer $A$ elevado por um algoritmo de base $A$ é igual ao logaritmando:
+
+$= \frac{n}{0.5} *(\frac{3^{log_{2}(n)}}{n} - 1)$
+
+Realizando a mudança de base:
+
+$= \frac{n}{0.5} *(\frac{3^{\frac{log_{3}(n)}{log_{3}(2)}}}{n} - 1)$
+
+Propriedade da multiplicação de expoentes:
+
+$= \frac{n}{0.5} *(\frac{(3^{log_{3}(n)})^{\frac{1}{log_{3}(2)}}}{n} - 1)$
+
+Um número qualquer $A$ elevado por um algoritmo de base $A$ é igual ao logaritmando:
+
+$= \frac{n}{0.5} *(\frac{n^{\frac{1}{log_{3}(2)}}}{n} - 1)$
+
+Propriedade da inversão de base:
+
+$= \frac{n}{0.5} *(\frac{n^{log_{2}(3)}}{n} - 1)$
+
+Realizando simplificações:
+
+$= (\frac{n^{log_{2}(3)}}{0.5} - \frac{1}{0.5})$
+
+Portanto, conforme as regras de simplificação, a complexidade é:
+
+$O(n^{log_{2}3})$
+
+:::
+
+???
+
+## Implementação (Desafio)
 
 Vamos agora pensar em como implementar esse algorítimo, primeiramente, vamos estabelecer algumas regras, por motivos obvios não é permitido simplesmente escrever:
 
@@ -366,39 +488,4 @@ int karatsuba(int x, int y){
 ```
 
 :::
-???
-
-## Complexidade
-
-Por fim, é interessante saber qual a complexidade desse algoritmo, para vermos o quão rápido ele é em relação à multiplicação clássica.
-
-??? Exercicio 4
-
-Lembre-se das árvores de complexidade para algoritmos recurssivos e tente escrever a recorrência desse algoritmo.
-
-_Dica: Considere que a parte não-recursiva de cada chamada tem complexidade $O(n)$ (isso é consequência das operações de soma que acontecem entre os produtos)_
-::: Gabarito
-
-```txt
-         /
-        | n             se n <= 1;
-f(n) = <
-        | 3f(n/3) + n   se n > 1.
-         \
-```
-
-:::
-
-???
-
-??? Exercício 5
-
-Calcule a complexidade do método de Karatsuba.
-
-::: Gabarito
-
-$O(n^{log_{2}3} )$
-
-:::
-
 ???
