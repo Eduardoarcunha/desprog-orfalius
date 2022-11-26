@@ -52,11 +52,11 @@ $$
 
 Sim, nós sabemos que isso pode ter sido chato, mas você já se perguntou qual a complexidade desse processo? Vamos descobrir!
 
-Antes de mais nada, precisamos dar um passo para trás no estudo de complexidade, uma vez que queremos entender a complexidade da multiplicação clássica, precisamos estudar a camada mais baixa de operações. Primeiramente, precisamos definir qual a operação básica de nossos processos, isso é qual operação é $O(1)$, estabeleceremos **qualquer operação atômica entre dois números de um dígito tem complexidade $O(1)$**.
+Antes de mais nada, precisamos dar um passo para trás no estudo de complexidade, uma vez que queremos entender a complexidade da multiplicação clássica, precisamos estudar a camada mais baixa de operações. Primeiramente, precisamos definir qual a operação básica de nossos processos, isso é qual operação é $O(1)$, nós estabeleceremos que **qualquer operação atômica entre dois números de um dígito tem complexidade $O(1)$**.
 
 ??? Checkpoint 2
 
-Até então, nós definimos a complexidade de um algoritmo em função de uma entrada, por exemplo, para algoritmos de ordenação, utilizamos o tamanho _n_ do vetor que será ordenado. A complexidade de uma operação de vários dígitos pode ser definida em função do que?
+Até então na discisplina, definimos a complexidade de um algoritmo em função de uma entrada, por exemplo, para algoritmos de ordenação, utilizamos o tamanho _n_ do vetor que será ordenado. A complexidade de uma operação de vários dígitos pode ser definida em função do que?
 
 ::: Gabarito
 
@@ -228,7 +228,7 @@ Até agora chegamos em quatro multiplicações de números com $n/2$ dígitos, s
 
 ??? Checkpoint 12
 
-Fatore o termo $(ad + bc)$ de forma a resultar em três multiplicações ao invés de duas
+Fatore o termo $(ad + bc)$ de forma a resultar em três multiplicações ao invés de duas.
 
 _Dica: Pelo produto de duas somas, podemos chegar em $(ad + bc)$ $+$ $alguma$ $coisa$, e depois isolarmos $(ad + bc)$_
 
@@ -276,7 +276,7 @@ _Dica: Considere que a parte não-recursiva de cada chamada tem complexidade $O(
 
 ```txt
          /
-        | n             se n <= 1;
+        | 1             se n <= 1;
 f(n) = <
         | 3f(n/2) + n   se n > 1.
          \
@@ -290,7 +290,7 @@ f(n) = <
 
 Desenhe a árvore do algoritmo.
 
-_Dica: A árvore é semelhante a prova (sim, ela é grande)_
+_Dica: A árvore é semelhante a prova (sim, ela é grande), e lembre-se que o valor de n muda para cada andar $(n, n/2, ...)$!_
 ::: Gabarito
 
 ![](karatsuba.png|20)
@@ -301,12 +301,12 @@ _Dica: A árvore é semelhante a prova (sim, ela é grande)_
 
 ??? Exercicio 3
 
-Qual a altura h dessa árvore?
+Qual a altura $h$ dessa árvore?
 
 ::: Gabarito
 
-Tamanho n divide por 3 a cada andar enquanto for maior que 1.
-No andar (h-2), o valor de n é maior que 1.
+Tamanho $n$ divide por 2 a cada andar enquanto for maior que 1.
+No andar $(h-2)$, o valor de $n$ é maior que 1.
 
 $\frac{n}{2^{h-2}} > 1$
 
@@ -332,7 +332,7 @@ Ao longo dos andares, temos
 
 $(n + 3(n/2) + 9(n/4) + ... + 3^{h-2}*n/2^{h-2} + 3^{h-1}*n/2^{h-1})$
 
-$n(1 + 3/2 + 9/4 + ... + 3^{h-2}/2^{h-2} + 3^{h-1}/2^{h-1})$
+$n*(1 + 3/2 + 9/4 + ... + 3^{h-2}/2^{h-2} + 3^{h-1}/2^{h-1})$
 
 Soma de PG
 
@@ -342,56 +342,56 @@ Soma de PG
 
 Dessa forma:
 
-$= n *\frac{((\frac{3}{2})^{h} - 1)}{3/2 - 1}$
+$= n * \frac{((\frac{3}{2})^{h} - 1)}{3/2 - 1}$
 
-$= n *\frac{(\frac{3^{h}}{2^{h}} - 1)}{0.5}$
+$= n * \frac{(\frac{3^{h}}{2^{h}} - 1)}{0.5}$
 
 Substituindo h:
 
-$= \frac{n}{0.5}(\frac{3^{log_{2}(n)}}{2^{log_{2}(n)}} - 1)$
+$\large = \frac{n}{0.5}(\frac{3^{log_{2}(n)}}{2^{log_{2}(n)}} - 1)$
 
-Um número qualquer $A$ elevado por um algoritmo de base $A$ é igual ao logaritmando:
+Um número qualquer $A$ elevado por um logaritmo de base $A$ é igual ao logaritmando:
 
-$= \frac{n}{0.5} *(\frac{3^{log_{2}(n)}}{n} - 1)$
+$\large = \frac{n}{0.5} *(\frac{3^{log_{2}(n)}}{n} - 1)$
 
 Realizando a mudança de base:
 
-$= \frac{n}{0.5} *(\frac{3^{\frac{log_{3}(n)}{log_{3}(2)}}}{n} - 1)$
+$\large = \frac{n}{0.5} *(\frac{3^{\frac{log_{3}(n)}{log_{3}(2)}}}{n} - 1)$
 
 Propriedade da multiplicação de expoentes:
 
-$= \frac{n}{0.5} *(\frac{(3^{log_{3}(n)})^{\frac{1}{log_{3}(2)}}}{n} - 1)$
+$\large = \frac{n}{0.5} *(\frac{(3^{log_{3}(n)})^{\frac{1}{log_{3}(2)}}}{n} - 1)$
 
-Um número qualquer $A$ elevado por um algoritmo de base $A$ é igual ao logaritmando:
+Um número qualquer $A$ elevado por um logaritmo de base $A$ é igual ao logaritmando:
 
-$= \frac{n}{0.5} *(\frac{n^{\frac{1}{log_{3}(2)}}}{n} - 1)$
+$\large = \frac{n}{0.5} *(\frac{n^{\frac{1}{log_{3}(2)}}}{n} - 1)$
 
 Propriedade da inversão de base:
 
-$= \frac{n}{0.5} *(\frac{n^{log_{2}(3)}}{n} - 1)$
+$\large = \frac{n}{0.5} *(\frac{n^{log_{2}(3)}}{n} - 1)$
 
 Realizando simplificações:
 
-$= (\frac{n^{log_{2}(3)}}{0.5} - \frac{1}{0.5})$
+$\large = (\frac{n^{log_{2}(3)}}{0.5} - \frac{1}{0.5})$
 
-Portanto, conforme as regras de simplificação, a complexidade é:
+Finalmente, conforme as regras de simplificação, a complexidade é:
 
-$O(n^{log_{2}3})$
+$O(n^{log_{2}3}) \approx O(n^{1.58})$
 
 :::
 
 ???
 
-## Implementação (Desafio)
+Assim, comprova-se que o algoritmo realmente tem complexidade menor que a multiplicação clássica!
 
-Vamos agora pensar em como implementar esse algorítimo, primeiramente, vamos estabelecer algumas regras, por motivos obvios não é permitido simplesmente escrever:
+## Desafio (Implementação)
+
+Por fim, vamos pensar em como implementar esse algorítimo, primeiramente, vamos estabelecer algumas regras, por motivos obvios não é permitido simplesmente escrever:
 
 ```c
 int karatsuba(x, y):
     return x*y;
 ```
-
-Se fizerem isso vocês passarão em todos os testes, mas isso claramente não é o propósito.
 
 A essa altura você já deve ter percebido que é de extrema importância separarmos os dígitos dos nossos fatores da multiplicação, portanto, precisamos definir qual a quantidade de dígitos de nosso número e então separá-lo em outros dois.
 
@@ -450,28 +450,26 @@ Implemente em **C** uma função recursiva que recebe `c int x` e `c int y` e re
 int karatsuba(int x, int y);
 ```
 
-Teste seu algorítimo clonando este [repositorio](https://www.rhportal.com.br/wp-content/uploads/limiting-work-in-progress-600x338.jpg) e implementando seu código no arquivo **karatsuba.c**, utilizando o comando:
+Se quiser testar seu código antes de olhar o gabarito, basta comparar o resultado chamando a função karatsuba com a operação padrão de multiplicação:
 
+```c
+if (karatsuba(239022, 982311) == (239022 * 982311)){
+  printf("Acertei!\n");
+}
 ```
-make karatsuba
-```
 
-!!! Importante
-Não altere os includes nem o cabeçalho da função pois os testes não funcionarão.
-!!!
-
-_Dica: Relembre-se dos passos para implementar um algoritmo recurssivo (Aula 2)_
+_Dica: Relembre-se do passo a passo para implementar um algoritmo recurssivo (Aula 2)_
 ::: Gabarito
 
 ```c
 int karatsuba(int x, int y){
   int n, half, a, b, c, d, ac, bd, ad_plus_bc;
 
-  if ((x < 10)|(y < 10)){
+  if ((x < 10) || (y < 10)){
     return x * y;
   }
 
-  n = (x == 0) ? 1 : log10(x) + 1;
+  n = (x == 0) ? 1 : log10(x) + 1;  // Número de dígitos
   half = n / 2;
 
   a = x / pow(10, half);
