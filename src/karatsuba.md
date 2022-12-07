@@ -131,7 +131,7 @@ Primeiramente, precisamos definir qual a operação básica de nossos processos,
 
 ??? Checkpoint 2
 
-Até então na discisplina, definimos a complexidade de um algoritmo em função de uma entrada, por exemplo, para algoritmos de ordenação, utilizamos o tamanho _n_ do vetor que será ordenado.
+Até então na disciplina, definimos a complexidade de um algoritmo em função de uma entrada, por exemplo, para algoritmos de ordenação, utilizamos o tamanho _n_ do vetor que será ordenado.
 
 A complexidade de uma operação de dois números de vários dígitos pode ser definida em função do que?
 
@@ -193,7 +193,7 @@ Calcule quantas multiplicações de um dígito ocorrem na multiplicação que vo
 Quatro multiplicações.
 ???
 
-Talvez você já consiga enxergar quantas operações aconteceriam no produto de três dígitios, será que conseguimos definir a complexidade da multiplicação?
+Talvez você já consiga enxergar quantas operações aconteceriam no produto de três dígitos, será que conseguimos definir a **complexidade da multiplicação**?
 
 ??? Checkpoint 7
 Relacione matematicamente o número de multiplicações $m$ com a quantidade $n$ de dígitos:
@@ -253,7 +253,7 @@ Você pode estar se perguntando se escrever um número dessa forma não seria pi
 **Assim, ao contar a quantidade de multiplicações do algoritmo iremos desconsiderar o produto com potências de dez.**
 
 ??? Checkpoint 10
-Vamos dar mais um passo e generalizar o processo, como escreveríamos $x$ em função de $a$, $b$ e $n$. Sendo $a$ a primeira metade dos dígitos de $x$, $b$ a segunda metade, e $n$ a quantidade de dígitos.
+Vamos dar mais um passo e generalizar o processo, como escreveríamos $x$ em função de $a,$ $b$ e $n$. Sendo $a$ a primeira metade dos dígitos de $x$, $b$ a segunda metade, e $n$ a quantidade de dígitos.
 ::: Gabarito
 $$x = a \times 10^{n/2} + b$$
 :::
@@ -341,7 +341,7 @@ f(n) = <
 
 ??? Exercicio 2
 
-Desenhe a árvore do algoritmo _(não é necessário desenhar a árvore inteira, desenhe até sentir que entendeu)_. [**Template**](https://ensino.hashi.pro.br/desprog/prova/2/template.drawio.png)
+Desenhe a árvore do algoritmo _(não é necessário desenhar a árvore inteira, desenhe até sentir que entendeu )_. [**Template**](https://ensino.hashi.pro.br/desprog/prova/2/template.drawio.png)
 
 _Dica: A árvore é semelhante a prova (sim, ela é grande), e lembre-se que o valor de n muda para cada andar $(n, n/2, ...)$!_
 ::: Gabarito
@@ -525,9 +525,9 @@ _Dica: Explore os tipos de divisão em c_
 ::: Gabarito
 
 ```c
-int half = n / 2;
-int a = x / pow(10, half);
-int b = x % pow(10, half);
+double half = n / 2;
+int a = x / (int) pow(10, half);
+int b = x % (int) pow(10, half);
 ```
 
 :::
