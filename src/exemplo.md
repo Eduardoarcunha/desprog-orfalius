@@ -52,11 +52,15 @@ $$
 
 Sim, nós sabemos que isso pode ter sido chato, mas você já se perguntou qual a complexidade desse processo? Vamos descobrir!
 
-Antes de mais nada, precisamos dar um passo para trás no estudo de complexidade, uma vez que queremos entender a complexidade da multiplicação clássica, precisamos estudar a camada mais baixa de operações. Primeiramente, precisamos definir qual a operação básica de nossos processos, isso é qual operação é $O(1)$, nós estabeleceremos que **qualquer operação atômica entre dois números de um dígito tem complexidade $O(1)$**.
+Antes de mais nada, precisamos dar um passo para trás no estudo de complexidade, uma vez que queremos entender a complexidade da multiplicação clássica, precisamos estudar a camada mais baixa de operações.
+
+Primeiramente, precisamos definir qual a operação básica de nossos processos, isso é qual operação é $O(1)$, nós estabeleceremos que **qualquer operação atômica entre dois números de {red}(um dígito) tem complexidade $O(1)$**.
 
 ??? Checkpoint 2
 
-Até então na discisplina, definimos a complexidade de um algoritmo em função de uma entrada, por exemplo, para algoritmos de ordenação, utilizamos o tamanho _n_ do vetor que será ordenado. A complexidade de uma operação de vários dígitos pode ser definida em função do que?
+Até então na discisplina, definimos a complexidade de um algoritmo em função de uma entrada, por exemplo, para algoritmos de ordenação, utilizamos o tamanho _n_ do vetor que será ordenado.
+
+A complexidade de uma operação de dois números de vários dígitos pode ser definida em função do que?
 
 ::: Gabarito
 
@@ -169,7 +173,7 @@ Agora que entendemos melhor como funciona o algoritmo clássico de multiplicaç�
 
 ## Uma maneira mais eficiente
 
-Certo, já sabemos que o processo clássico de multiplicação tem complexidade $O(n^2)$, mas será que existe algum algorítimo mais eficiente?
+Certo, já sabemos que o processo clássico de multiplicação tem complexidade $O(n^2)$, mas será que existe algum algoritmo mais eficiente?
 
 Já adiantamos que sim! E ainda bem que sim! Pois, para números muito grandes, com dezenas ou centenas de dígitos, a quantidade de operações realizadas exigiria muito tempo de processamento de um computador, e em áreas como a criptografia, na qual operações com esses números acontecem, os processos demorariam muito mais tempo para serem concluídos.
 
@@ -189,7 +193,7 @@ Iremos utilizar a estratégia de divisão e conquista.
 E se fosse possível calcular o produto de dois números de $n$ dígitos por meio de um método com um número menor de multiplicações? Foi exatamente isso que Karatsuba conseguiu fazer.
 
 Primeiramente vamos imaginar que queremos dividir a nossa entrada em duas.
-Seja um inteiro: $$ x=314159 $$ vamos separá-lo nossa de modo a obter os primeiros dígitos em um número $a$ e os últimos dígitos em um número $b$, ou seja, teremos $$ a=314 \; \; \; \;b=159$$
+Seja um inteiro: $$ x=314159 $$ vamos separá-lo de modo a obter os primeiros dígitos em um número $a$ e os últimos dígitos em um número $b$, ou seja, teremos $$ a=314 \; \; \; \;b=159$$
 
 ??? Checkpoint 10
 
@@ -222,7 +226,7 @@ $$= (a\times10^{n/2}) (c\times10^{n/2}) + ad \times 10^{n/2} + bc \times 10^{n/2
 
 $$= \underline{ac} \times 10^{2(n/2)} + (\underline{ad}+\underline{bc}) \times 10^{n/2} + \underline{bd}$$
 
-Até agora chegamos em quatro multiplicações de números com $n/2$ dígitos, se fossemos analisar a complexidade aqui, ainda teriamos $O(n^{2})$.
+Até agora chegamos em quatro multiplicações de números com $n/2$ dígitos, se fossemos calcular a complexidade aqui, seria possível provar que ainda teriamos $O(n^{2})$. Ou seja, ainda não conseguimos melhorar a complexidade da operação.
 
 É possível aumentar o número de multiplicações de 4 para 5, tentaremos manipular essa expressão para atingir esse resultado. (Tenha fé, isso fará sentido!)
 
@@ -237,6 +241,8 @@ _Dica: Pelo produto de duas somas, podemos chegar em $(ad + bc)$ $+$ $alguma$ $c
 $(ad + bc) = (a + c) \times (d + c) - ac - bd$
 
 Você pode estar pensando que pioramos nossa situação, uma vez que agora temos:
+
+$$\underline{ac} \times 10^{2(n/2)} +  \underline{(a + c) \times (d + c)} - \underline{ac} - \underline{bd} \times 10^{n/2} + \underline{bd}$$
 
 |                        | Aparições |
 | ---------------------- | :-------: |
@@ -288,7 +294,7 @@ f(n) = <
 
 ??? Exercicio 2
 
-Desenhe a árvore do algoritmo.
+Desenhe a árvore do algoritmo _(não é necessário desenhar a árvore inteira)_.
 
 _Dica: A árvore é semelhante a prova (sim, ela é grande), e lembre-se que o valor de n muda para cada andar $(n, n/2, ...)$!_
 ::: Gabarito
@@ -305,7 +311,7 @@ Qual a altura $h$ dessa árvore?
 
 ::: Gabarito
 
-Tamanho $n$ divide por 2 a cada andar enquanto for maior que 1.
+Dígitos $n$ divide por 2 a cada andar enquanto for maior que 1.
 No andar $(h-2)$, o valor de $n$ é maior que 1.
 
 $\frac{n}{2^{h-2}} > 1$
@@ -320,11 +326,9 @@ $h = O(log_{2}(n))$, ou seja $h <= c * log_{2}(n)$
 
 Sim, chegou o momento.
 
-??? Exercicio 4 (Desafio)
+??? Exercicio 4
 
-Calcule a complexidade do método de karatsuba.
-
-_Dica: Teremos que usar propriedades logarítmicas e exponenciais_
+Encontre a soma dos {red}(**vermelhos**) da árvore, e deixe o resultado em função de $h$.
 
 ::: Gabarito
 
@@ -332,7 +336,7 @@ Ao longo dos andares, temos
 
 $(n + 3(n/2) + 9(n/4) + ... + 3^{h-2}*n/2^{h-2} + 3^{h-1}*n/2^{h-1})$
 
-$n*(1 + 3/2 + 9/4 + ... + 3^{h-2}/2^{h-2} + 3^{h-1}/2^{h-1})$
+$= n*(1 + 3/2 + 9/4 + ... + 3^{h-2}/2^{h-2} + 3^{h-1}/2^{h-1})$
 
 Soma de PG
 
@@ -345,6 +349,22 @@ Dessa forma:
 $= n * \frac{((\frac{3}{2})^{h} - 1)}{3/2 - 1}$
 
 $= n * \frac{(\frac{3^{h}}{2^{h}} - 1)}{0.5}$
+:::
+???
+
+??? Exercicio 5
+
+Substitua $h$ e manipule a expressão para que o $2^{h}$ desapareça.
+
+_Dica: Teremos que usar propriedades logarítmicas e exponenciais_
+
+::: Super Dica
+
+Pense na definição de logaritmo, isto é, o que significa o número $log_{2}(n)$, e depois pense o que significa $2^{log_{2}(n)}$
+
+:::
+
+::: Gabarito
 
 Substituindo h:
 
@@ -353,6 +373,18 @@ $\large = \frac{n}{0.5}(\frac{3^{log_{2}(n)}}{2^{log_{2}(n)}} - 1)$
 Um número qualquer $A$ elevado por um logaritmo de base $A$ é igual ao logaritmando:
 
 $\large = \frac{n}{0.5} *(\frac{3^{log_{2}(n)}}{n} - 1)$
+
+:::
+
+???
+
+??? Exercício 6
+
+Por fim, calcule a complexidade da árvore.
+
+_Dica: Pode ser interessante mudar a base do logaritmo restante_
+
+::: Gabarito
 
 Realizando a mudança de base:
 
@@ -382,11 +414,22 @@ $O(n^{log_{2}3}) \approx O(n^{1.58})$
 
 ???
 
-Assim, comprova-se que o algoritmo realmente tem complexidade menor que a multiplicação clássica!
+Assim, comprova-se que o algoritmo realmente tem complexidade menor que a multiplicação clássica! E esse algoritmo que acabamos de estudar é o **método de Karatsuba**!
+
+Porém ele não é o melhor dos algoritmos! Se ficou curioso em ver o quanto a quantidade de operações _cresce_ para diferentes algoritmos de multiplicação, temos aqui gráficos de comparação!
+
+::: Graficos de comparação
+
+Aqui comparamos o karatsuba com o algoritmo clássico e outros três, repare que do penúltimo gráfico para o último, nós apenas demos um zoom em dois algoritmos!
+
+:graficos
+:::
 
 ## Desafio (Implementação)
 
-Por fim, vamos pensar em como implementar esse algorítimo, primeiramente, vamos estabelecer algumas regras, por motivos obvios não é permitido simplesmente escrever:
+Por fim, caso tenha acabado o handout antes do fechamento, vamos pensar em como implementar esse algorítimo.
+
+Primeiramente, vamos estabelecer algumas regras, por motivos obvios não é permitido simplesmente escrever:
 
 ```c
 int karatsuba(x, y):
@@ -463,8 +506,8 @@ _Dica: Relembre-se do passo a passo para implementar um algoritmo recurssivo (Au
 
 ```c
 int karatsuba(int x, int y){
-  int n, half, a, b, c, d, ac, bd, ad_plus_bc;
-
+  int n, a, b, c, d, ac, bd, ad_plus_bc;
+  double half;
   if ((x < 10) || (y < 10)){
     return x * y;
   }
@@ -472,10 +515,10 @@ int karatsuba(int x, int y){
   n = (x == 0) ? 1 : log10(x) + 1;  // Número de dígitos
   half = n / 2;
 
-  a = x / pow(10, half);
-  b = x % pow(10, half);
-  c = y / pow(10, half);
-  d = y % pow(10, half);
+  a = x / (int) pow(10.0, half);
+  b = x % (int) pow(10.0, half);
+  c = y / (int) pow(10.0, half);
+  d = y % (int) pow(10.0, half);
 
   ac = karatsuba(a, c);
   bd = karatsuba(b, d);
