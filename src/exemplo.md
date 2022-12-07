@@ -1,5 +1,78 @@
 # Método de Karatsuba
 
+++++++++++++++++++++++++++++++++++++++++++
+&nbsp;
+
+^Desafios de Programação
+
+**Método de Karatsuba**
+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++
+&nbsp;
+&nbsp;
+
+**É possível realizar multiplicações mais rapidamente?**
+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++
+
+**Handout**
+
+- ^Agora podemos fazer tanto individualmente quanto em grupo
+
+- ^…e discussões em grupo podem de fato fazer diferença…
+
+- ^…mas, em algum momento, é importante fazer individualmente.
+
+- ^Se há gabarito, veja só em último caso.
+
+- ^Se não há gabarito, haverá um depois.
+
+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++
+
+**Fechamento**
+
+- ^O método de Karatsuba é melhor que o método clássico, mas existem melhores...
+
+- ^Ensino fundamental: $O(n)$
+
+- ^Karatsuba: $O(n^{log_{2}(3)}) \approx O(n^{1.58})$
+
+- ^Tom Cook: $O(n^{log_{3}(5)}) \approx O(n^{1.46})$
+
+- ^Schonhage: $O(n\;log(n)\;log(log(n))$.
+
+- ^Galactic: $O(n\;log(n))$.
+
+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++
+
+**Fechamento**
+
+^Vamos ver na prática a quantidade de operações de cada algoritmo.
+
+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++
+
+![](g1.png)
+
+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++
+
+![](g2.png)
+
+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++
+
+![](g3.png)
+
+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++
+
+![](g4.png)
+
+++++++++++++++++++++++++++++++++++++++++++
+
 ## Definições elementares
 
 A **multiplicação** é uma operação matemática que fazemos desde o ensino fundamental, essa já é tão automatizada em nossas cabeças que até seu conceito pode ser esquecido as vezes! Na prática, multiplicar é somar uma quantidade finita de números iguais.
@@ -120,39 +193,9 @@ Calcule quantas multiplicações de um dígito ocorrem na multiplicação que vo
 Quatro multiplicações.
 ???
 
+Talvez você já consiga enxergar quantas operações aconteceriam no produto de três dígitios, será que conseguimos definir a complexidade da multiplicação?
+
 ??? Checkpoint 7
-
-Realize o mesmo processo, mais uma vez. Lembre-se que não estamos interessados no resultado do produto, mas na quantidade de multiplicações de um dígitos que são feitas.
-
-$$
-\begin{equation}
-\frac{
-    \begin{array}[b]{r}
-      \left( 2 3\right)\\
-      \times \left( 5 6 \right)
-    \end{array}
-  }{
-    \left( produto \right)
-  }
-\end{equation}
-$$
-
-::: Gabarito
-
-| Multiplicação | Ocorrências |
-| :-----------: | :---------: |
-|     6 X 3     |      1      |
-|     6 X 2     |      1      |
-|     5 X 3     |      1      |
-|     5 X 2     |      1      |
-
-4 multiplicações.
-
-???
-
-Talvez você já consiga enxergar um padrão, será que conseguimos definir a complexidade da multiplicação?
-
-??? Checkpoint 8
 Relacione matematicamente o número de multiplicações $m$ com a quantidade $n$ de dígitos:
 
 _Dica: Se não tiver enxergado um padrão, realize o mesmo processo para números de três dígitos_
@@ -179,7 +222,7 @@ Já adiantamos que sim! E ainda bem que sim! Pois, para números muito grandes, 
 
 Para compreender um desses novos métodos vamos utilizar uma estratégia já vista.
 
-??? Checkpoint 9
+??? Checkpoint 8
 Você consegue pensar em alguma estratégia ja vista antes em **Desafios de Programação** que consiga resolver um problema quebrando ele em versões mais simples, e combinando as soluções dessas para resolver o problema original?
 
 ::: Gabarito
@@ -195,7 +238,7 @@ E se fosse possível calcular o produto de dois números de $n$ dígitos por mei
 Primeiramente vamos imaginar que queremos dividir a nossa entrada em duas.
 Seja um inteiro: $$ x=314159 $$ vamos separá-lo de modo a obter os primeiros dígitos em um número $a$ e os últimos dígitos em um número $b$, ou seja, teremos $$ a=314 \; \; \; \;b=159$$
 
-??? Checkpoint 10
+??? Checkpoint 9
 
 Como poderíamos escrever a nossa entrada $x$ em função de $a$ e $b$?
 
@@ -209,7 +252,7 @@ Você pode estar se perguntando se escrever um número dessa forma não seria pi
 
 **Assim, ao contar a quantidade de multiplicações do algoritmo iremos desconsiderar o produto com potências de dez.**
 
-??? Checkpoint 11
+??? Checkpoint 10
 Vamos dar mais um passo e generalizar o processo, como escreveríamos $x$ em função de $a$, $b$ e $n$. Sendo $a$ a primeira metade dos dígitos de $x$, $b$ a segunda metade, e $n$ a quantidade de dígitos.
 ::: Gabarito
 $$x = a \times 10^{n/2} + b$$
@@ -230,7 +273,7 @@ Até agora chegamos em quatro multiplicações de números com $n/2$ dígitos, s
 
 É possível aumentar o número de multiplicações de 4 para 5, tentaremos manipular essa expressão para atingir esse resultado. (Tenha fé, isso fará sentido!)
 
-??? Checkpoint 12
+??? Checkpoint 11
 
 Fatore o termo $(ad + bc)$ de forma a resultar em três multiplicações ao invés de duas.
 
@@ -256,7 +299,7 @@ Mas na verdade melhoramos, apenas 3 multiplicações vão acontecer!
 
 ???
 
-??? Checkpoint 13
+??? Checkpoint 12
 
 Consegue entender o porquê na realidade temos 3 multiplicações e não 5?
 
@@ -266,6 +309,10 @@ As multiplicações $ac$ e $bd$ só precisam ser calculadas uma vez, então pode
 
 :::
 ???
+
+Conseguimos, temos a ideia do algoritmo representada matematicamente:
+
+$${ac} \times 10^{2(n/2)} +  {(a + c) \times (d + c)} - {ac} - {bd} \times 10^{n/2} + {bd}$$
 
 ## Complexidade
 
@@ -294,7 +341,7 @@ f(n) = <
 
 ??? Exercicio 2
 
-Desenhe a árvore do algoritmo _(não é necessário desenhar a árvore inteira)_.
+Desenhe a árvore do algoritmo _(não é necessário desenhar a árvore inteira, desenhe até sentir que entendeu)_. [**Template**](https://ensino.hashi.pro.br/desprog/prova/2/template.drawio.png)
 
 _Dica: A árvore é semelhante a prova (sim, ela é grande), e lembre-se que o valor de n muda para cada andar $(n, n/2, ...)$!_
 ::: Gabarito
@@ -316,7 +363,11 @@ No andar $(h-2)$, o valor de $n$ é maior que 1.
 
 $\frac{n}{2^{h-2}} > 1$
 
-$2^{h} < 9n$
+$2^{h} < 4n$
+
+$2^{h} = O(n)$, ou seja $2^{h} <= c * n$
+
+ou
 
 $h = O(log_{2}(n))$, ou seja $h <= c * log_{2}(n)$
 
@@ -324,7 +375,9 @@ $h = O(log_{2}(n))$, ou seja $h <= c * log_{2}(n)$
 
 ???
 
-Sim, chegou o momento.
+Sim, chegou o momento vamos calcular a complexidade.
+
+_Aviso: Não se preocupe se você calcular a complexidade com manipulações matemáticas diferentes das feitas nos próximos checkpoints!_
 
 ??? Exercicio 4
 
@@ -354,23 +407,21 @@ $= n * \frac{(\frac{3^{h}}{2^{h}} - 1)}{0.5}$
 
 ??? Exercicio 5
 
-Substitua $h$ e manipule a expressão para que o $2^{h}$ desapareça.
-
-_Dica: Teremos que usar propriedades logarítmicas e exponenciais_
+Desapareça com o $2^{h}$, então substitua $h$.
 
 ::: Super Dica
 
-Pense na definição de logaritmo, isto é, o que significa o número $log_{2}(n)$, e depois pense o que significa $2^{log_{2}(n)}$
+$2^{h} = O(n)$
 
 :::
 
 ::: Gabarito
 
+Como $2^{h} = O(n)$:
+
+$\large = \frac{n}{0.5} *(\frac{3^{h}}{n} - 1)$
+
 Substituindo h:
-
-$\large = \frac{n}{0.5}(\frac{3^{log_{2}(n)}}{2^{log_{2}(n)}} - 1)$
-
-Um número qualquer $A$ elevado por um logaritmo de base $A$ é igual ao logaritmando:
 
 $\large = \frac{n}{0.5} *(\frac{3^{log_{2}(n)}}{n} - 1)$
 
