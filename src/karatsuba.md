@@ -25,7 +25,7 @@
 
 - ^Se há gabarito, veja só em último caso.
 
-- ^Se não há gabarito, haverá um depois.
+- ^Haverá um fake quiz ao final da aula
 
 ++++++++++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++
